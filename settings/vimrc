@@ -1,0 +1,151 @@
+"tiny vim等の場合はvimrcを読み込まない
+if !1 | finish | endif
+"#viで起動した場合はvimrcを読み込まない(.bashrc等に設定)
+"alias vi="vi -u NONE --noplugin"
+
+"文字コードを自動判別して開く
+"set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+"改行コードを自動判別
+"set fileformats=unix,dos,mac
+
+set number
+set ruler
+set encoding=utf-8
+syntax on
+imap jj <esc>
+
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+"検索文字列をハイライト
+set hlsearch
+"esc2回押下でハイライト解除(silent解除で明示的に)
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+"nmap <silent> <Esc><Esc> :nohlsearch<CR>
+
+"インクリメントサーチ
+set incsearch
+"検索文字列が小文字の場合は大文字小文字を区別しない
+set ignorecase
+"検索文字列に大文字が含まれている場合は大文字小文字を区別する
+set smartcase
+"折り返し検索をしない
+set nowrapscan
+"set wrapscan
+"
+"検索文字列を全て中央画面に
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+"行を折り返す
+set wrap
+"set nowrap
+"長い行でも全て表示
+set display=lastline
+"折り返し行でも自然に移動
+nnoremap j gj
+nnoremap k gk
+
+"set autoindent
+"set smartindent
+set cindent
+set expandtab
+"set noexpandtab
+set tabstop=4
+set shiftwidth=4
+">>,<<等でインデントした際に幅をあわせる
+set shiftround
+
+"不可視文字の表示
+"set list
+"行を強調表示
+"set cursorline
+"列を強調表示
+"set cursorcolumn
+
+"set virtualedit=all
+"set backspace=indent,eol,start
+
+"補完メニューの長さを指定
+set pumheight=10
+
+"一時ファイル等の無効化
+set nowritebackup
+set nobackup
+set noswapfile
+
+
+"hjklでウィンドウ移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"対応する括弧に<>を追加する
+set matchpairs& matchpairs+=<:>
+"TABで対応する括弧に移動
+nnoremap <Tab> %
+vnoremap <Tab> %
+
+"0.3秒対応する括弧に飛ぶ
+set showmatch
+set matchtime=3
+
+imap {} {}<Left>
+imap [] []<Left>
+imap () ()<Left>
+imap <> <><Left>
+imap '' ''<Left>
+imap `` ``<Left>
+imap "" ""<Left>
+
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
+
+if has('vim_starting')
+  set nocompatible
+  "neobundleをインストールしていない場合は自動インストール
+  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+    echo "install neobundle..."
+    "gitコマンドでneobundle.vimをクローン
+    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+  endif
+  "runtimepath の追加は必須
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+"neobundle#begin - neobundle#end の間にプラグインを記述
+call neobundle#begin(expand('~/.vim/bundle'))
+let g:neobundle_default_git_protocol='https'
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'sudar/vim-arduino-syntax'
+NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
+NeoBundleCheck
+call neobundle#end()
+filetype plugin indent on
+set t_Co=256
+colorscheme jellybeans
+"colorscheme molokai
+
+"vim-indent-guides設定
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 0
+let g:indent_guides_start_level = 2
+
+"jedi設定(python補完)
+py3(sys.path.append('/usr/lib/python2.7/dist-packages'))
+"補完時のポップアップウィンドウを解除
+"let g:jedi#popup_select_first = 0
+".入力後の自動補完を解除
+let g:jedi#popup_on_dot = 0
