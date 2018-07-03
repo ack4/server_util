@@ -21,9 +21,6 @@
 -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
-# -A INPUT -p tcp -m state --state NEW -m tcp --dport 55555 -j ACCEPT
-#-A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
-
 -A INPUT -p tcp -m state --syn --state NEW --dport 55555 -m hashlimit --hashlimit-name t_sshd --hashlimit 1/m --hashlimit-burst 10 --hashlimit-mode srcip --hashlimit-htable-expire 120000 -j ACCEPT
 
 #-A INPUT -p udp -m udp --dport 9000 -j ACCEPT
