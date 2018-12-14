@@ -130,6 +130,7 @@ NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'mechatroner/rainbow_csv'
 
 NeoBundleCheck
 call neobundle#end()
