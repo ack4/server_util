@@ -26,14 +26,14 @@ def getFile():
 import numpy as np
 import pandas as pd
 
-#date,time,total,used,free,shared,buff_cache,available,swap_total,swap_userd,swap_free
+#datetime,total,used,free,shared,buff_cache,available,swap_total,swap_userd,swap_free
 inputFile,performanceThreshold = getFile()
 df = pd.read_csv(inputFile)
 
 df = df.assign(util_mem = df['total'] - df['available'])
 df = df.assign(util = (df['util_mem'] / df['total']) * 100)
-#指定カラムを抽出: time,util
-spec_columns = ['time','total','util_mem','util']
+#指定カラムを抽出: datetime,util
+spec_columns = ['datetime','total','util_mem','util']
 df = df[spec_columns]
 df = df.query(str(performanceThreshold)  + ' <= util')
 print('free_util_sumple' + '\t' + str(df.shape[0]))

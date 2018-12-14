@@ -26,13 +26,13 @@ def getFile():
 import numpy as np
 import pandas as pd
 
-#date,time,AM_PM,Device,rrqm/s,wrqm/s,r/s,w/s,rMB/s,wMB/s,avgrq-sz,avgqu-sz,await,r_await,w_await,svctm,util
+#datetime,Device,rrqm/s,wrqm/s,r/s,w/s,rMB/s,wMB/s,avgrq-sz,avgqu-sz,await,r_await,w_await,svctm,util
 #row:73,columns:19
 inputFile,performanceThreshold = getFile()
 df = pd.read_csv(inputFile)
-
-#指定カラムを抽出: time,util
-spec_columns = ['time','util']
+#
+##指定カラムを抽出: datetime,util
+spec_columns = ['datetime','util']
 df = df[spec_columns]
 df = df.query(str(performanceThreshold)  + ' <= util')
 print('iostat_util_sumple' + '\t' + str(df.shape[0]))

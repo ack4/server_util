@@ -26,13 +26,13 @@ def getFile():
 import numpy as np
 import pandas as pd
 
-#date,time,r,b,swpd,free,buff,cache,si,so,bi,bo,in,cs,us,sy,id,wa,st
+#datetime,r,b,swpd,free,buff,cache,si,so,bi,bo,in,cs,us,sy,id,wa,st
 #row:73,columns:19
 inputFile,performanceThreshold = getFile()
 df = pd.read_csv(inputFile)
 
-#指定カラムを抽出: time,us,sy,wa,st,id
-spec_columns = ['time','us','sy','wa','st','id']
+#指定カラムを抽出: datetime,us,sy,wa,st,id
+spec_columns = ['datetime','us','sy','wa','st','id']
 df = df[spec_columns]
 df = df.assign(cpu = 100 - df['id'])
 df = df.assign(flg = (performanceThreshold <= df['cpu']).astype(int))

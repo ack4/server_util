@@ -40,7 +40,7 @@ bash <(echo "${FREE_JOB}") &
 vmstat -t -n -S M ${INTERVAL} $((INTERVAL_COUNT + 1)) >> ${EVI_DIR}/result_vmstat &
 sar ${INTERVAL} ${INTERVAL_COUNT} -o ${EVI_DIR}/result_sar > /dev/null &
 mpstat -P ALL ${INTERVAL} ${INTERVAL_COUNT} >> ${EVI_DIR}/result_mpstat &
-iostat -txdm ${INTERVAL} $((INTERVAL_COUNT + 1)) >> ${EVI_DIR}/result_iostat &
+LC_ALL=C iostat -txdm ${INTERVAL} $((INTERVAL_COUNT + 1)) >> ${EVI_DIR}/result_iostat &
 
 while [ "$(jobs -r | wc -l)"  != "0" ]
 do

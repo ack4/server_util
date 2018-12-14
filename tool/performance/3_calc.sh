@@ -13,8 +13,7 @@ function pre_vmstat()
 
 function pre_iostat()
 {
-    cat - \
-        | cat ${CONV_IOSTAT} | grep '^.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*$'
+    cat -
 }
 
 function pre_free()

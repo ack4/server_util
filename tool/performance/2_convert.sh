@@ -51,18 +51,10 @@ function conv_iostat()
         | grep -v '^Device:' \
         | grep -v '^START' \
         | grep -v '^Linux' \
-        | sed -E 's/^(..)\/(..)\/(....) (..:..:.. ..)/\n\3-\1-\2 \4/g' \
+        | sed -E 's/^(..)\/(..)\/(..) (..:..:..)/\n20\3-\1-\2 \4/g' \
         | awk 'BEGIN {FS="\n";RS="";OFS="\n"} {print $1 " " $2,$1 " " $3,$1 " " $4}' \
         | tr ' ' ',' \
-        | awk -F, 'BEGIN {OFS=","} {print $1 " " $2 " " $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17}' \
-        | while read LINE
-          do
-              declare local TMP=$(echo ${LINE} | cut -d, -f2-15)
-              declare local DATETIME_AMPM=$(echo ${LINE} | cut -d, -f1)
-              #AM,PM表記を変換
-              DATETIME_AMPM=$(date -d "${DATETIME_AMPM}" +"%F %T")
-              echo "${DATETIME_AMPM},${TMP}"
-          done
+        | awk -F, 'BEGIN {OFS=","} {print $1 " " $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16}'
 }
 
 
