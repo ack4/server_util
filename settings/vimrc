@@ -4,9 +4,11 @@ if !1 | finish | endif
 "alias vi="vi -u NONE --noplugin"
 
 "文字コードを自動判別して開く
-"set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+"set fileencodings=iso-r022-jp,cp932,sjis,euc-jp,utf-8
 "改行コードを自動判別
 "set fileformats=unix,dos,mac
+
+let mapleader = "\<Space>"
 
 set number
 set ruler
@@ -123,14 +125,12 @@ call neobundle#begin(expand('~/.vim/bundle'))
 let g:neobundle_default_git_protocol='https'
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'sudar/vim-arduino-syntax'
-NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'mechatroner/rainbow_csv'
+NeoBundle 'easymotion/vim-easymotion'
 
 NeoBundleCheck
 call neobundle#end()
@@ -144,9 +144,5 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 0
 let g:indent_guides_start_level = 2
 
-"jedi設定(python補完)
-py3(sys.path.append('/usr/lib/python2.7/dist-packages'))
-"補完時のポップアップウィンドウを解除
-"let g:jedi#popup_select_first = 0
-".入力後の自動補完を解除
-let g:jedi#popup_on_dot = 0
+map <Leader> <Plug>(easymotion-prefix)
+"map w <Plug>(easymotion-prefix)
